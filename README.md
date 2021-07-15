@@ -1,5 +1,8 @@
 # Shell Utility Methods
 Shell script utility methods for general purpose.
 
-# List
-- [X] ocrstr - Replace text defined by open and close tags.
+## Utilities
+
+| Name   | Bash | Dash | Description |
+| ------ | ---- | ---- | ----------- |
+| ocrstr | X    | X    | Replace text defined by open and close tags. |
