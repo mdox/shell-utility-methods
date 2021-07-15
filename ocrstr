@@ -1,0 +1,38 @@
+#!/bin/sh
+
+strpos() {
+	local off=$(echo "${2:-$(cat -)}" | grep -o -b "$1" | head -1 | cut -d: -f1)
+	[ -z $off ] && echo -1 || echo $((1+$off))
+}
+
+substr() {
+	echo "${3:-$(cat -)}" | cut -c$1-$2
+}
+
+ocrstr() {
+	local open=$1
+	local close=$2
+	local replace=$3
+	local text=${4:-$(cat -)}
+
+	local openPos=$(strpos "$open" "$text")
+
+	[ $openPos -eq -1 ] && echo "$text"
+	
+	local textAfterOpenPos=$(substr $openPos "" "$text")
+
+	local closePos=$(strpos "$close" "$textAfterOpenPos")
+
+	local textBeforeOpenPos
+	[ $openPos -ne 1 ] && textBeforeOpenPos=$(substr 1 $(($openPos-1)) "$text")
+
+	[ $closePos -eq -1 ] && echo "$textBeforeOpenPos$replace"
+
+	local closeLiteral=$(echo "$textAfterOpenPos" | grep -o "$close")
+
+	# Print: textBeforeOpenPos, replace, the text after openPos + closePos + closeLiteral's length - 1
+	echo "$textBeforeOpenPos$replace$(substr $(($openPos+$closePos+$(expr length "$closeLiteral")-1)) "" "$text")"
+}
+
+ocrstr $@
+
