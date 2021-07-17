@@ -1,0 +1,17 @@
+#!/bin/sh
+
+strpos() {
+	local x=${1%%$2*}
+	[ "$x" = "$1" ] && echo -1 || echo "${#x}"
+}
+
+substr() {
+	echo "$1" | cut -c$(($2+1))-$3
+}
+
+chstr() {
+	local x=$(strpos "$1" "$2")
+	[ $x -eq -1 ] && echo "$1" || echo "$(substr "$1" 0 $x)$3$(substr "$1" $(($x+$(expr length $2))))"
+}
+
+chstr "$@"
