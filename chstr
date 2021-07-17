@@ -6,7 +6,7 @@ strpos() {
 }
 
 cutstr() {
-    echo "$1" | cut -c$(($2))-$3
+    echo "$1" | cut -c$2-$3
 }
 
 chstr() {
