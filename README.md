@@ -5,5 +5,5 @@ Shell script utility methods for general purpose.
 
 | Name   | Bash | Dash | Description |
 | :----- | :--: | :--: | :---------- |
-| ocrstr | X    | X    | Change text (open, close, replace[, text]) |
+| ocrstr | X    | X    | Change text (open, close, replace[, source]) |
 | chstr  | X    | X    | Change text (source, search, replace) |
